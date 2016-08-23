@@ -8,3 +8,6 @@ convert some number into words.
     1. 1001 - One thousand and One
     2. 2032 - Two thousand and thirty two
     3. 10,001 - Ten thousand and one
+
+# Licence
+MIT
