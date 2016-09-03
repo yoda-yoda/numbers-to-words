@@ -1,4 +1,4 @@
-# :1234: to  :capital_abcd:
+# :1234: to  :capital_abcd: converter
 Convert Numbers to Words.
 
 ## This package is mostly meant for financial purposes. Where you would want to

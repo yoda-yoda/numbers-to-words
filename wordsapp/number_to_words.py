@@ -3,9 +3,9 @@
 This package is mostly meant for financial purposes. Where you need to convert
 some number into words.
 For instance :
-    1. (1001 - One thousand and One)
-    2. (2032 - Two thousand and thirty two)
-    3. (10,001 - Ten thousand and one)
+    1. (1001 - One Thousand And One)
+    2. (2032 - Two Thousand And Thirty Two)
+    3. (10,001 - Ten Thousand And One)
 """
 import math
 
