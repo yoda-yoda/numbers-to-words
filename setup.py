@@ -5,7 +5,16 @@ from wordsapp import AUTHOR, VERSION
 
 name = 'words_app'
 
-version = VERSION
+
+def get_version(version_iter):
+    """Get the version number."""
+    assert isinstance(version_iter, (tuple, list,))
+    version = ''
+    for number in version_iter:
+        version += str(number) + '.'
+    return version[:len(version) - 1]
+
+version = get_version(VERSION)
 
 setup(
     name=name,
