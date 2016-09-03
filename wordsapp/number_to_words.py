@@ -94,7 +94,7 @@ class NumbersToWord(NumbersBaseWrapper):
 
         elif number < 100:
             # Get tens and ones
-            tens = (number / 10) * 10
+            tens = int(number / 10) * 10
             units = number % 10
             string = self.dictionary[tens]
             if units:
@@ -102,7 +102,7 @@ class NumbersToWord(NumbersBaseWrapper):
 
         elif number < 1000:
             # Get hundreds and make a recursive call with the remainder
-            hundreds = number / 100
+            hundreds = int(number / 100)
             remainder = number % 100
             string = self.dictionary[hundreds] + self.space + \
                 self.dictionary[100]
