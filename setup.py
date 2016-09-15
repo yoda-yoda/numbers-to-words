@@ -8,7 +8,7 @@ name = 'words_app'
 
 def get_version(version_iter):
     """Get the version number."""
-    assert isinstance(version_iter, (tuple, list,))
+    assert isinstance(version_iter, (tuple, list,)) is True
     version = ''
     for number in version_iter:
         version += str(number) + '.'
@@ -20,10 +20,10 @@ setup(
     name=name,
     version=version,
     packages=find_packages(exclude=['tests', 'tests.*']),
-    description="Numbers to words library",
+    description='Numbers to words library',
     author=AUTHOR,
-    author_email="dee.caranja@gmail.com",
-    license="MIT",
+    author_email='dee.caranja@gmail.com',
+    license='MIT',
     install_requires=[
     ],
     scripts=[

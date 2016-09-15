@@ -72,15 +72,22 @@ class NumbersToWord(NumbersBaseWrapper):
                 new_string += word.capitalize() + self.space
             return new_string
         except AssertionError as e:
-            print(e)
+            raise e
 
     def number_to_words(self, number):
         """Convert a number into words."""
         if not isinstance(number, (int, float,)):
-            return False
+            # Try to convert the string to a number incase the use passed
+            # a quoted digit.
+            try:
+                number = int(number)
+                self.number_to_words(number)
+            except ValueError as e:
+                raise e
 
         if number < 0:
-            return self.negative + self.number_to_words(abs(number))
+            negative = self.title_case(self.negative.replace(' ', ''))
+            return negative + self.number_to_words(abs(number))
 
         string = fraction = None
 
@@ -131,7 +138,8 @@ class NumbersToWord(NumbersBaseWrapper):
                 words += self.dictionary[int(each)] + self.space
             string += words
 
-        return self.title_case(string.replace("  ", " "))
+        result = self.title_case(string.replace("  ", " "))
+        length = len(result)
 
-obj = NumbersToWord()
-print(obj.number_to_words(82974.43))
+        # Remove the trailing space
+        return result[:length - 1]

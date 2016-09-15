@@ -1,0 +1,10 @@
+[run]
+branch=True
+source=wordsapp
+omit=.tox/*
+
+[report]
+show_missing=True
+
+[html]
+directory=coverage

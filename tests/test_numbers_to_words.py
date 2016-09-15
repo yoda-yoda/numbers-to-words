@@ -1,4 +1,6 @@
 """Test case suite for numbers to words app."""
+import pytest
+
 from wordsapp.number_to_words import NumbersToWord
 
 
@@ -48,3 +50,41 @@ class TestNumbersToWords(NumbersToWord):
         assert one_twenty == 'One Hundred And Twenty'
         assert one_seventy == 'One Hundred And Seventy'
         assert two_hundred == 'Two Hundred'
+
+    def test_a_none_int_or_float_passed_to_the_number_method(self):
+        """A Non convertible string to a number should raise a ValueError."""
+        with pytest.raises(ValueError) as e:
+            self.number_to_words('NaN')
+        assert 'NaN' in str(e.value)
+
+    def test_a_passing_a_string_form_of_a_number(self):
+        """A convertible string to a number should succeed."""
+        one_twenty = self.number_to_words('120')
+        assert one_twenty == 'One Hundred And Twenty'
+
+    def test_a_negative_number_as_a_string(self):
+        """A convertible (negative)string to a number should succeed."""
+        negative_one_twenty = self.number_to_words('-120')
+        assert negative_one_twenty == 'Negative One Hundred And Twenty'
+
+    def test_a_positive_number_as_a_string(self):
+        """A convertible (positive)string to a number should succeed."""
+        four_one_twenty = self.number_to_words('420')
+        assert four_one_twenty == 'Four Hundred And Twenty'
+
+    def test_a_four_digit_number_with_a_remainder(self):
+        """Convert a four digit number with a remainder."""
+        result = self.number_to_words(1243)
+        msg = 'One Thousand, Two Hundred And Fourty-three Point Zero '
+        assert result == msg
+
+    def test_a_four_digit_number_without_a_remainder(self):
+        """Convert a four digit number without a remainder."""
+        result = self.number_to_words(2000)
+        assert result == 'Two Thousand'
+
+    def test_passing_a_number_to_the_title_case_method(self):
+        """Raise an assetion error if a number is passed."""
+        with pytest.raises(AssertionError) as e:
+            self.title_case(2345)
+        assert 'Ensure you pass a string.' == str(e.value)
