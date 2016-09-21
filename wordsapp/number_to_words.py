@@ -3,9 +3,9 @@
 This package is mostly meant for financial purposes. Where you need to convert
 some number into words.
 For instance :
-    1. (1001 - One thousand and One)
-    2. (2032 - Two thousand and thirty two)
-    3. (10,001 - Ten thousand and one)
+    1. (1001 - One Thousand And One)
+    2. (2032 - Two Thousand And Thirty Two)
+    3. (10,001 - Ten Thousand And One)
 """
 import math
 
@@ -72,15 +72,22 @@ class NumbersToWord(NumbersBaseWrapper):
                 new_string += word.capitalize() + self.space
             return new_string
         except AssertionError as e:
-            print(e)
+            raise e
 
     def number_to_words(self, number):
         """Convert a number into words."""
         if not isinstance(number, (int, float,)):
-            return False
+            # Try to convert the string to a number incase the use passed
+            # a quoted digit.
+            try:
+                number = int(number)
+                self.number_to_words(number)
+            except ValueError as e:
+                raise e
 
         if number < 0:
-            return self.negative + self.number_to_words(abs(number))
+            negative = self.title_case(self.negative.replace(' ', ''))
+            return negative + self.number_to_words(abs(number))
 
         string = fraction = None
 
@@ -94,7 +101,7 @@ class NumbersToWord(NumbersBaseWrapper):
 
         elif number < 100:
             # Get tens and ones
-            tens = (number / 10) * 10
+            tens = int(number / 10) * 10
             units = number % 10
             string = self.dictionary[tens]
             if units:
@@ -102,7 +109,7 @@ class NumbersToWord(NumbersBaseWrapper):
 
         elif number < 1000:
             # Get hundreds and make a recursive call with the remainder
-            hundreds = number / 100
+            hundreds = int(number / 100)
             remainder = number % 100
             string = self.dictionary[hundreds] + self.space + \
                 self.dictionary[100]
@@ -131,7 +138,8 @@ class NumbersToWord(NumbersBaseWrapper):
                 words += self.dictionary[int(each)] + self.space
             string += words
 
-        return self.title_case(string.replace("  ", " "))
+        result = self.title_case(string.replace("  ", " "))
+        length = len(result)
 
-obj = NumbersToWord()
-print(obj.number_to_words(82974.43))
+        # Remove the trailing space
+        return result[:length - 1]
